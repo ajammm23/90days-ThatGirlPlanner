@@ -5,14 +5,13 @@ import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
 ```
+
 - Click **"Commit changes"** → confirm
 
 ---
 
-**Step 3 — Create `.npmrc`**
-- Go back to the root of the repo (click **90days-ThatGirlPlanner** at the top)
-- Click **"Add file"** → **"Create new file"**
-- Name it: `.npmrc`
-- Paste:
+**Step 2 — Check `.npmrc` exists separately**
+- Go back to the root of the repo
+- You should see a file called `.npmrc` — click it and make sure it contains **only**:
 ```
 legacy-peer-deps=true
