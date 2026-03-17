@@ -877,19 +877,19 @@ function VisionTab({ T }) {
                 </div>
                 <div style={{display:"flex",justifyContent:"space-between",marginTop:3}}>
                   <div style={{display:"flex",gap:2}}>
-                    <button onMouseDown={e=>e.stopPropagation()} onTouchStart={e=>e.stopPropagation()} onClick={()=>resize(img.id,-5)} style={{padding:"1px 7px",fontSize:10,borderRadius:4,border:`0.5px solid ${T.mid}`,background:"#FAFAF8",color:"#8A8A8A",cursor:"pointer",fontFamily:FONT_SANS}}>−</button>
-                    <button onMouseDown={e=>e.stopPropagation()} onTouchStart={e=>e.stopPropagation()} onClick={()=>resize(img.id,5)} style={{padding:"1px 7px",fontSize:10,borderRadius:4,border:`0.5px solid ${T.mid}`,background:"#FAFAF8",color:"#8A8A8A",cursor:"pointer",fontFamily:FONT_SANS}}>+</button>
-                    <button onMouseDown={e=>e.stopPropagation()} onTouchStart={e=>e.stopPropagation()} onClick={()=>toggleLock(img.id)} style={{padding:"1px 7px",fontSize:10,borderRadius:4,border:`0.5px solid ${img.locked?T.accent:T.mid}`,background:img.locked?T.accent:"#FAFAF8",color:img.locked?"#FAFAF8":"#8A8A8A",cursor:"pointer",fontFamily:FONT_SANS,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <button onMouseDown={e=>e.stopPropagation()} onTouchStart={e=>e.stopPropagation()} onClick={()=>resize(img.id,-5)} style={{padding:"1px 6px",fontSize:10,borderRadius:4,border:"none",background:"transparent",color:"rgba(150,150,150,0.6)",cursor:"pointer",fontFamily:FONT_SANS}}>−</button>
+                    <button onMouseDown={e=>e.stopPropagation()} onTouchStart={e=>e.stopPropagation()} onClick={()=>resize(img.id,5)} style={{padding:"1px 6px",fontSize:10,borderRadius:4,border:"none",background:"transparent",color:"rgba(150,150,150,0.6)",cursor:"pointer",fontFamily:FONT_SANS}}>+</button>
+                    <button onMouseDown={e=>e.stopPropagation()} onTouchStart={e=>e.stopPropagation()} onClick={()=>toggleLock(img.id)} style={{padding:"1px 6px",fontSize:10,borderRadius:4,border:"none",background:"transparent",color:img.locked?"rgba(80,80,80,0.8)":"rgba(150,150,150,0.6)",cursor:"pointer",fontFamily:FONT_SANS,display:"flex",alignItems:"center",justifyContent:"center"}}>
                       <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="1" y="4.5" width="7" height="5" rx="1" stroke={img.locked?"#FAFAF8":"#8A8A8A"} strokeWidth="0.8"/>
+                        <rect x="1" y="4.5" width="7" height="5" rx="1" stroke={img.locked?"rgba(80,80,80,0.8)":"rgba(150,150,150,0.6)"} strokeWidth="0.8"/>
                         {img.locked
-                          ? <path d="M2.5 4.5V3a2 2 0 0 1 4 0v1.5" stroke="#FAFAF8" strokeWidth="0.8" fill="none"/>
-                          : <path d="M2.5 4.5V3a2 2 0 0 1 4 0" stroke="#8A8A8A" strokeWidth="0.8" fill="none"/>
+                          ? <path d="M2.5 4.5V3a2 2 0 0 1 4 0v1.5" stroke="rgba(80,80,80,0.8)" strokeWidth="0.8" fill="none"/>
+                          : <path d="M2.5 4.5V3a2 2 0 0 1 4 0" stroke="rgba(150,150,150,0.6)" strokeWidth="0.8" fill="none"/>
                         }
                       </svg>
                     </button>
                   </div>
-                  <button onMouseDown={e=>e.stopPropagation()} onTouchStart={e=>e.stopPropagation()} onClick={()=>setImages(imgs=>imgs.filter(x=>x.id!==img.id))} style={{padding:"1px 7px",fontSize:10,borderRadius:4,border:`0.5px solid ${T.mid}`,background:"#FAFAF8",color:"#CCC",cursor:"pointer",fontFamily:FONT_SANS}}>×</button>
+                  <button onMouseDown={e=>e.stopPropagation()} onTouchStart={e=>e.stopPropagation()} onClick={()=>setImages(imgs=>imgs.filter(x=>x.id!==img.id))} style={{padding:"1px 6px",fontSize:10,borderRadius:4,border:"none",background:"transparent",color:"rgba(150,150,150,0.6)",cursor:"pointer",fontFamily:FONT_SANS}}>×</button>
                 </div>
               </div>
             ))}
