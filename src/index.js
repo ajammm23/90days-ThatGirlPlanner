@@ -1,13 +1,18 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
-import App from "./App";
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+```
+- Click **"Commit changes"** → confirm
 
-const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
+---
 
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+**Step 3 — Create `.npmrc`**
+- Go back to the root of the repo (click **90days-ThatGirlPlanner** at the top)
+- Click **"Add file"** → **"Create new file"**
+- Name it: `.npmrc`
+- Paste:
+```
+legacy-peer-deps=true
