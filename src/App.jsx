@@ -857,7 +857,7 @@ function VisionTab({ T }) {
       <div style={{fontFamily:FONT_SANS,fontSize:10,color:"#8A8A8A",marginBottom:18}}>visualise the life you're creating</div>
       <BlushCard theme={T} style={{marginBottom:12}}>
         <TxtInp theme={T} value={label} onChange={e=>setLabel(e.target.value)} placeholder="label (optional)" style={{marginBottom:8}}/>
-        <input ref={fileRef} type="file" accept="image/*" multiple onChange={upload} style={{display:"none"}}/>
+        <input ref={fileRef} type="file" accept="image/*" multiple onChange={upload} style={{display:"none"}} onClick={e=>e.target.value=null}/>
         <button onClick={()=>fileRef.current.click()} style={{width:"100%",padding:"10px",borderRadius:10,background:"#FAFAF8",border:`0.5px dashed ${T.mid}`,color:T.text,cursor:"pointer",fontSize:11,fontFamily:FONT_SANS,letterSpacing:0.5}}>+ upload image(s)</button>
       </BlushCard>
       {images.length===0?(
@@ -871,7 +871,7 @@ function VisionTab({ T }) {
                 style={{position:"absolute",left:`${img.xPct??img.x??0}%`,top:`${img.yPct??img.y??0}%`,width:`${img.wPct??30}%`,zIndex:img.z,cursor:img.locked?"default":"grab",touchAction:"none"}}
                 onMouseDown={e=>onDown(e,img.id)}
                 onTouchStart={e=>onDown(e,img.id)}>
-                <div style={{borderRadius:8,overflow:"hidden",border:img.locked?`1.5px solid ${T.accent}`:"1px solid #FAFAF8",boxShadow:"0 2px 12px rgba(0,0,0,0.06)"}}>
+                <div style={{borderRadius:8,overflow:"hidden",border:"none",boxShadow:"0 2px 12px rgba(0,0,0,0.06)"}}>
                   <img src={img.src} alt={img.label} style={{width:"100%",display:"block",pointerEvents:"none"}}/>
                   {img.label&&<div style={{background:"rgba(58,58,58,0.7)",padding:"3px 8px",fontSize:9,color:"#FAFAF8",fontFamily:FONT_SANS}}>{img.label}</div>}
                 </div>
