@@ -795,7 +795,7 @@ function VisionTab({ T }) {
   const setImages=v=>{const n=typeof v==="function"?v(images):v;setImagesRaw(n);sv("vision_imgs",n);};
   const upload=e=>{Array.from(e.target.files).forEach(file=>{const r=new FileReader();r.onload=ev=>setImages(imgs=>[...imgs,{id:Date.now()+Math.random(),src:ev.target.result,label:label||"",x:Math.random()*80,y:Math.random()*60,w:160,z:imgs.length}]);r.readAsDataURL(file);});setLabel("");};
   const onDown=(e,id)=>{e.preventDefault();const board=boardRef.current.getBoundingClientRect();const img=images.find(i=>i.id===id);dragging.current=id;const cx=e.touches?e.touches[0].clientX:e.clientX;const cy=e.touches?e.touches[0].clientY:e.clientY;offset.current={x:cx-board.left-img.x,y:cy-board.top-img.y};setImages(imgs=>imgs.map(i=>i.id===id?{...i,z:Math.max(...imgs.map(x=>x.z))+1}:i));};
-  const onMove=useCallback(e=>{if(!dragging.current)return;const board=boardRef.current.getBoundingClientRect();const cx=e.touches?e.touches[0].clientX:e.clientX;const cy=e.touches?e.touches[0].clientY:e.clientY;setImages(imgs=>imgs.map(i=>i.id!==dragging.current?i:{...i,x:cx-board.left-offset.current.x,y:cy-board.top-offset.current.y}));},[images]);
+  const onMove=useCallback(e=>{if(!dragging.current)return;if(e.cancelable)e.preventDefault();const board=boardRef.current.getBoundingClientRect();const cx=e.touches?e.touches[0].clientX:e.clientX;const cy=e.touches?e.touches[0].clientY:e.clientY;setImages(imgs=>imgs.map(i=>i.id!==dragging.current?i:{...i,x:cx-board.left-offset.current.x,y:cy-board.top-offset.current.y}));},[images]);
   const onUp=()=>{dragging.current=null;};
   useEffect(()=>{window.addEventListener("mousemove",onMove);window.addEventListener("mouseup",onUp);window.addEventListener("touchmove",onMove,{passive:false});window.addEventListener("touchend",onUp);return()=>{window.removeEventListener("mousemove",onMove);window.removeEventListener("mouseup",onUp);window.removeEventListener("touchmove",onMove);window.removeEventListener("touchend",onUp);};},[onMove]);
   const resize=(id,d)=>setImages(imgs=>imgs.map(i=>i.id===id?{...i,w:Math.max(80,Math.min(300,i.w+d))}:i));
@@ -827,9 +827,9 @@ function VisionTab({ T }) {
       ):(
         <div style={{marginBottom:24}}>
           <div style={{fontSize:9,color:"#8A8A8A",marginBottom:8,textAlign:"center",fontFamily:FONT_SANS,letterSpacing:1}}>drag to move · − + to resize</div>
-          <div ref={boardRef} style={{position:"relative",minHeight:360,background:"#FAFAF8",borderRadius:16,border:`0.5px solid ${T.mid}`,overflow:"hidden",userSelect:"none"}}>
+          <div ref={boardRef} style={{position:"relative",minHeight:360,background:"#FAFAF8",borderRadius:16,border:`0.5px solid ${T.mid}`,overflow:"hidden",userSelect:"none",touchAction:"none"}}>
             {images.map(img=>(
-              <div key={img.id} style={{position:"absolute",left:img.x,top:img.y,width:img.w,zIndex:img.z,cursor:"grab"}} onMouseDown={e=>onDown(e,img.id)} onTouchStart={e=>onDown(e,img.id)}>
+              <div key={img.id} style={{position:"absolute",left:img.x,top:img.y,width:img.w,zIndex:img.z,cursor:"grab",touchAction:"none"}} onMouseDown={e=>onDown(e,img.id)} onTouchStart={e=>onDown(e,img.id)}>
                 <div style={{borderRadius:8,overflow:"hidden",border:"1px solid #FAFAF8",boxShadow:"0 2px 12px rgba(0,0,0,0.06)"}}><img src={img.src} alt={img.label} style={{width:"100%",display:"block",pointerEvents:"none"}}/>{img.label&&<div style={{background:"rgba(58,58,58,0.7)",padding:"3px 8px",fontSize:9,color:"#FAFAF8",fontFamily:FONT_SANS}}>{img.label}</div>}</div>
                 <div style={{display:"flex",justifyContent:"space-between",marginTop:3}}>
                   <div style={{display:"flex",gap:2}}>
@@ -1170,11 +1170,11 @@ export default function App() {
   ];
 
   return (
-  <div style={{fontFamily:FONT_SANS, maxWidth:680, margin:"0 auto", minHeight:"100vh", background:"#FAFAF8", paddingTop:"env(safe-area-inset-top)"}}>
+    <div style={{fontFamily:FONT_SANS, maxWidth:680, margin:"0 auto", minHeight:"100vh", background:"#FAFAF8"}}>
       <style>{gStyle}</style>
 
       {/* Header — white */}
-      <div style={{background:"#FAFAF8", padding:"1.5rem 1rem 0.75rem", borderBottom:`0.5px solid #E8E0E0`}}>
+      <div style={{background:"#FAFAF8", padding:"1rem 1rem 0.75rem", borderBottom:`0.5px solid #E8E0E0`}}>
         <div style={{textAlign:"center"}}>
           <div style={{fontFamily:FONT_SANS, fontSize:9, letterSpacing:2.5, textTransform:"uppercase", color:"#8A8A8A", marginBottom:4}}>
             {today.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})} · {plannerData.name}
