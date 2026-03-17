@@ -1170,11 +1170,11 @@ export default function App() {
   ];
 
   return (
-    <div style={{fontFamily:FONT_SANS, maxWidth:680, margin:"0 auto", minHeight:"100vh", background:"#FAFAF8"}}>
+  <div style={{fontFamily:FONT_SANS, maxWidth:680, margin:"0 auto", minHeight:"100vh", background:"#FAFAF8", paddingTop:"env(safe-area-inset-top)"}}>
       <style>{gStyle}</style>
 
       {/* Header — white */}
-      <div style={{background:"#FAFAF8", padding:"1rem 1rem 0.75rem", borderBottom:`0.5px solid #E8E0E0`}}>
+      <div style={{background:"#FAFAF8", padding:"1.5rem 1rem 0.75rem", borderBottom:`0.5px solid #E8E0E0`}}>
         <div style={{textAlign:"center"}}>
           <div style={{fontFamily:FONT_SANS, fontSize:9, letterSpacing:2.5, textTransform:"uppercase", color:"#8A8A8A", marginBottom:4}}>
             {today.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})} · {plannerData.name}
