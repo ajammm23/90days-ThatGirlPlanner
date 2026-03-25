@@ -231,6 +231,15 @@ function SetupFlow({ onComplete }) {
     <div style={{minHeight:"100vh",background:"#FAFAF8"}}>
       <style>{gStyle}</style>
       {showColorPicker && <ColorPickerModal current={colorHex} onSave={h=>{setColorHex(h);setShowColorPicker(false);}} onClose={()=>setShowColorPicker(false)}/>}
+
+      {/* Install prompt — shown only on setup, only in browser */}
+      {!window.navigator.standalone&&!window.matchMedia("(display-mode: standalone)").matches&&(
+        <div style={{background:T.cardBg,borderBottom:`0.5px solid ${T.mid}`,padding:"12px 20px"}}>
+          <div style={{fontFamily:FONT_SANS,fontSize:10,color:"#3A3A3A",fontWeight:500,marginBottom:3}}>✦ get the full app experience</div>
+          <div style={{fontFamily:FONT_SANS,fontSize:9,color:"#8A8A8A",lineHeight:1.6}}>tap the share icon <strong>⎙</strong> at the bottom of your screen → "add to home screen" → open it from there for a fullscreen app with no browser bar</div>
+        </div>
+      )}
+
       <div style={{maxWidth:480,margin:"0 auto",padding:"2.5rem 1.5rem 5rem"}}>
         <div style={{display:"flex",gap:3,marginBottom:32}}>
           {steps.map((_,i)=><div key={i} style={{flex:1,height:1,background:i<=step?"#3A3A3A":T.mid,transition:"background 0.4s"}}/>)}
@@ -262,10 +271,10 @@ function SetupFlow({ onComplete }) {
               </div>
               <button onClick={()=>setShowColorPicker(true)} style={{width:"100%",padding:"10px",borderRadius:10,border:`0.5px dashed ${T.mid}`,background:"transparent",color:"#8A8A8A",cursor:"pointer",fontSize:10,fontFamily:FONT_SANS,letterSpacing:1}}>+ custom colour</button>
             </div>
-            <BlushCard theme={T} style={{marginTop:20}}>
-              <SerifH size={15} style={{marginBottom:6}}>90 days from now, everything is different.</SerifH>
-              <div style={{fontSize:11,color:T.text,fontFamily:FONT_SANS,lineHeight:1.7}}>this planner will guide you every single day. you don't have to think — just act.</div>
-            </BlushCard>
+            <Card theme={T} style={{marginTop:20}}>
+              <SerifH size={15} style={{marginBottom:6}}>she started on a random tuesday. not a monday. not the first of the month. just today.</SerifH>
+              <div style={{fontSize:11,color:"#8A8A8A",fontFamily:FONT_SANS,lineHeight:1.8}}>this is your space to set goals, build habits, track your growth and visualise the life you're creating — all in one place, every single day for 90 days.</div>
+            </Card>
           </div>
         )}
 
@@ -1215,12 +1224,6 @@ export default function App() {
   const dayNum = getCurrentDay(plannerData.startDate);
   const today = new Date();
 
-  const [showInstallBanner, setShowInstallBanner] = useState(()=>!ld("install_dismissed",false));
-  const dismissBanner = () => { sv("install_dismissed", true); setShowInstallBanner(false); };
-
-  // detect if already running as installed PWA
-  const isInstalled = window.navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
-
   const TABS = [
     {id:"today",label:"today"},{id:"journey",label:"journey"},{id:"goals",label:"goals"},
     {id:"todos",label:"to-do"},{id:"habits",label:"habits"},{id:"journal",label:"journal"},
@@ -1231,17 +1234,6 @@ export default function App() {
   return (
     <div style={{fontFamily:FONT_SANS, maxWidth:680, margin:"0 auto", minHeight:"100vh", background:"#FAFAF8", paddingTop:"env(safe-area-inset-top)"}}>
       <style>{gStyle}</style>
-
-      {/* Install banner */}
-      {showInstallBanner && !isInstalled && (
-        <div style={{background:T.main, borderBottom:`0.5px solid ${T.mid}`, padding:"10px 14px", display:"flex", alignItems:"center", justifyContent:"space-between", gap:10}}>
-          <div style={{flex:1}}>
-            <div style={{fontFamily:FONT_SANS, fontSize:10, color:T.text, fontWeight:500, marginBottom:2}}>add to your home screen ✦</div>
-            <div style={{fontFamily:FONT_SANS, fontSize:9, color:T.text, opacity:0.8, lineHeight:1.5}}>tap the share icon <span style={{fontWeight:600}}>⎙</span> then "add to home screen" — use it like a real app, fullscreen, no browser bar</div>
-          </div>
-          <button onClick={dismissBanner} style={{background:"none", border:"none", cursor:"pointer", color:T.text, fontSize:16, opacity:0.5, flexShrink:0, padding:"0 4px"}}>×</button>
-        </div>
-      )}
 
       {/* Header — white */}
       <div style={{background:"#FAFAF8", padding:"1.5rem 1rem 0.75rem", borderBottom:`0.5px solid #E8E0E0`}}>
